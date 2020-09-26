@@ -1,3 +1,7 @@
+$boxGreen: rgba(10, 83, 10, 0.925);
+$boxRed: rgba(230, 20, 20, 0.925);
+$boxBlue: rgba(45, 137, 173, 0.877);
+$boxYellow: rgb(241, 241, 41);
 
 table {
     border-collapse: collapse  ;
@@ -10,13 +14,16 @@ table {
 .pic {
     height: 100%;
     padding: 15px;
-    div {
+
+}
+
+.pic > div {
         height: 100%;
         box-sizing: border-box;
         border: 8px solid rgba(3, 3, 3, 0.945);
         border-radius: 15px;
-    }
 }
+
 #eden {
     background-image: url(img/eden.jpg);
     background-size: cover;
@@ -45,18 +52,55 @@ table {
     background-image: url(img/middle.jpg);
     background-size: cover;
 }
+
+.inner {
+    position: relative;
+}
+
+.inner div {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.innerOne {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+}
+
+.innerTwo {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+.innerThree {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+}
+
+.innerFour {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+}
+
 .green {
-    background-color: rgba(10, 83, 10, 0.925);
+    background-color: $boxGreen;
 }
 
 .red {
-    background-color: rgba(230, 20, 20, 0.925);
+    background-color: $boxRed;
 }
 
 .blue {
-    background-color: rgba(45, 137, 173, 0.877);
+    background-color: $boxBlue;
 }
 
 .yellow {
-    background-color: rgb(241, 241, 41);
+    background-color: $boxYellow;
 }

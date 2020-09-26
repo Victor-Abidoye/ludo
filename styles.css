@@ -7,11 +7,12 @@ table {
 .pic {
   height: 100%;
   padding: 15px; }
-  .pic div {
-    height: 100%;
-    box-sizing: border-box;
-    border: 8px solid rgba(3, 3, 3, 0.945);
-    border-radius: 15px; }
+
+.pic > div {
+  height: 100%;
+  box-sizing: border-box;
+  border: 8px solid rgba(3, 3, 3, 0.945);
+  border-radius: 15px; }
 
 #eden {
   background-image: url(img/eden.jpg);
@@ -36,6 +37,36 @@ table {
   height: 100%;
   background-image: url(img/middle.jpg);
   background-size: cover; }
+
+.inner {
+  position: relative; }
+
+.inner div {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid black; }
+
+.innerOne {
+  position: absolute;
+  left: 10%;
+  top: 10%; }
+
+.innerTwo {
+  position: absolute;
+  top: 10%;
+  right: 10%; }
+
+.innerThree {
+  position: absolute;
+  bottom: 10%;
+  left: 10%; }
+
+.innerFour {
+  position: absolute;
+  bottom: 10%;
+  right: 10%; }
 
 .green {
   background-color: rgba(10, 83, 10, 0.925); }
