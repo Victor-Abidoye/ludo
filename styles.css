@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0; }
+
+table {
+  border-collapse: collapse; }
+  table td {
+    height: 50px;
+    width: 50px; }
+
+.green {
+  background-color: green; }
+
+.red {
+  background-color: red; }
+
+.blue {
+  background-color: blue; }
+
+.yellow {
+  background-color: yellow; }
+
+/*# sourceMappingURL=styles.css.map */
