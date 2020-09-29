@@ -58,7 +58,35 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td rowspan="3" colspan="3"><div id="middle"></div></td>
+                <td rowspan="3" colspan="3">
+                    <div id="middle">
+                        <div id="sixs"></div>
+                        <div id="dice" onclick="now()">
+                            <div class="faces">
+                                <div id="faceOne"></div>
+                                <div id="faceTwo"></div>
+                                <div id="faceThree"></div>
+                                <div id="faceFour"></div>
+                                <div id="faceFive"></div>
+                                <div id="faceSix"></div>
+                                <div id="faceSeven"></div>
+                                <div id="faceEight"></div>
+                                <div id="faceNine"></div>
+                            </div>
+
+
+                            <div class="faces faceWhole">
+                                <div class="faceOne"></div>
+                                <div class="faceTwo"></div>
+                                <div class="faceThree"></div>
+                                <div class="faceFour"></div>
+                                <div class="faceFive"></div>
+                                <div class="faceSix"></div>
+                                <div class="faceSeven"></div>
+                                <div class="faceEight"></div>
+                                <div class="faceNine"></div>
+                            </div>
+                        </div></div></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -139,5 +167,92 @@
             </tr>
         </table>
     </div>
+    <script>
+        // DICE ROLL  CONTROL
+        // array of classes that controls dice dots
+        var one = ['faceFive']
+        var two = ['faceOne', 'faceNine']
+        var three = ['faceOne', 'faceFive', 'faceNine']
+        var four = ['faceOne', 'faceThree', 'faceSeven', 'faceNine']
+        var five = ['faceOne', 'faceThree', 'faceFive' ,'faceSeven', 'faceNine']
+        var six = ['faceOne', 'faceThree', 'faceFour', 'faceSix',  'faceSeven', 'faceNine']
+
+        //now() creates a loop that generates a random number that is passed to other functions
+        function now() {
+            // Variables a and b generate are ther random numbers gernerated
+            // Variavle c is and array of varibles that are themselves array of classes that controls the dice dots
+            var a;
+            var b;
+            var c;
+            var myVar = setInterval(() => {
+                a = Math.floor(Math.random() * 6)
+                c = Math.floor(Math.random() * 6)
+                b = [ one, two, three, four, five, six]
+                roll(b[a])
+                roll1(b[c])
+            }, 100);
+            setTimeout(() => {
+                clearInterval(myVar)
+                setTimeout(() => {
+                    stop(b[a])
+                    stop1(b[c])
+                    console.log(a + 1)
+                    console.log(c + 1)
+                    // If a double 6 dice is rolled, then the dice is automatically rolled again and a small dice box is created
+                    if (a == c && a == 5 ) {
+                        setTimeout(() => {
+                            var div = `<div id="six"></div><div id="six"></div>`
+                            document.getElementById('sixs').innerHTML = document.getElementById('sixs').innerHTML + div;
+                            now()
+                        }, 1000);
+                    }
+                }, 100);
+
+            }, 2000);
+        }
+
+
+        // the roll and roll1() receives random integer input from the now() and displays the appropriate dots on each dice
+        function roll (x) {
+            for (i = 0; i < x.length; i++){
+                document.getElementById(x[i]).style.visibility = "visible";
+            }
+
+            setTimeout(() => {
+                    for (i = 0; i < x.length; i++){
+                        document.getElementById(x[i]).style.visibility = "hidden";
+                    }
+            }, 50);
+        }
+
+        function roll1 (x) {
+            for (i = 0; i < x.length; i++){
+               var p =  document.getElementsByClassName(x[i])
+               p[0].style.visibility = "visible"
+            }
+
+            setTimeout(() => {
+                for (i = 0; i < x.length; i++){
+                    var p =  document.getElementsByClassName(x[i])
+                    p[0].style.visibility = "hidden"
+                }
+            }, 50);
+        }
+
+        // the stop() and stop1() receives a random integer input from the now and makes the final dots of the dice roll visible
+        function stop(x){
+            for (i = 0; i < x.length; i++){
+                document.getElementById(x[i]).style.visibility = "visible";
+            }
+        }
+
+        function stop1(x){
+            for (i = 0; i < x.length; i++){
+               var p =  document.getElementsByClassName(x[i])
+               p[0].style.visibility = "visible"
+            }
+        }
+
+    </script>
 </body>
 </html>

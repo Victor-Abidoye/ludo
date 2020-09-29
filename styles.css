@@ -2,7 +2,7 @@ table {
   border-collapse: collapse; }
   table td {
     height: 50px;
-    width: 50px; }
+    min-width: 50px; }
 
 .pic {
   height: 100%;
@@ -36,7 +36,47 @@ table {
 #middle {
   height: 100%;
   background-image: url(img/middle.jpg);
-  background-size: cover; }
+  background-size: cover;
+  position: relative;
+  padding: 0; }
+
+#dice {
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  width: 97%;
+  margin-top: -30px; }
+  #dice .die {
+    height: 30%;
+    width: 30%;
+    border: 2px solid yellow;
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px; }
+
+.faces {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  float: left;
+  margin-left: 16px;
+  margin-top: 4px;
+  background-color: whitesmoke; }
+
+.faces div {
+  height: 10px;
+  width: 10px;
+  float: left;
+  margin: 3px;
+  border-radius: 50%;
+  background-color: black;
+  visibility: hidden; }
+
+#six {
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+  float: left; }
 
 .inner {
   position: relative; }
