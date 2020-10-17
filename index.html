@@ -4,9 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ludo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Choose your color</h5>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <div>
+                            <label>Player1&nbsp;&nbsp;</label>
+                            <select name="" id="">
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="" >Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                            <select name="" id="">
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="">Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Player2&nbsp;&nbsp;</label>
+                            <select name="" id="">
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="">Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                            <select name="" id="">
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="">Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Player3&nbsp;&nbsp;</label>
+                            <select name="" id="" disabled>
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="">Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Player4&nbsp;&nbsp;</label>
+                            <select name="" id="" disabled>
+                                <option value="">--Choose a color--</option>
+                                <option class="yellow" value="">Yellow</option>
+                                <option class="green" value="">Green</option>
+                                <option class="red" value="">Red</option>
+                                <option class="blue" value="">Blue</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary m-auto" data-dismiss="modal">PLAY</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <div>
         <table border="1">
             <tr>
@@ -27,7 +101,9 @@
                 </div></div></td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+
+                </td>
                 <td class="red"></td>
                 <td class="red"></td>
             </tr>
@@ -168,92 +244,9 @@
             </tr>
         </table>
     </div>
-    <script>
-        // DICE ROLL  CONTROL
-        // array of classes that controls dice dots
-        var one = ['faceFive']
-        var two = ['faceOne', 'faceNine']
-        var three = ['faceOne', 'faceFive', 'faceNine']
-        var four = ['faceOne', 'faceThree', 'faceSeven', 'faceNine']
-        var five = ['faceOne', 'faceThree', 'faceFive' ,'faceSeven', 'faceNine']
-        var six = ['faceOne', 'faceThree', 'faceFour', 'faceSix',  'faceSeven', 'faceNine']
-
-        //now() creates a loop that generates a random number that is passed to other functions
-        function now() {
-            // Variables a and b generate are ther random numbers gernerated
-            // Variavle c is and array of varibles that are themselves array of classes that controls the dice dots
-            var a;
-            var b;
-            var c;
-            var myVar = setInterval(() => {
-                a = Math.floor(Math.random() * 6)
-                c = Math.floor(Math.random() * 6)
-                b = [ one, two, three, four, five, six]
-                roll(b[a])
-                roll1(b[c])
-            }, 100);
-            setTimeout(() => {
-                clearInterval(myVar)
-                setTimeout(() => {
-                    stop(b[a])
-                    stop1(b[c])
-                    console.log(a + 1)
-                    console.log(c + 1)
-                    // If a double 6 dice is rolled, then the dice is automatically rolled again and a small dice box is created
-                    if (a == c && a == 5 ) {
-                        setTimeout(() => {
-                            var div = `<div id="six"></div><div id="six"></div>`
-                            document.getElementById('sixs').innerHTML = document.getElementById('sixs').innerHTML + div;
-                            now()
-                        }, 1000);
-                    }
-                }, 100);
-
-            }, 2000);
-        }
-
-
-        // the roll and roll1() receives random integer input from the now() and displays the appropriate dots on each dice
-        function roll (x) {
-            for (i = 0; i < x.length; i++){
-                document.getElementById(x[i]).style.visibility = "visible";
-            }
-
-            setTimeout(() => {
-                    for (i = 0; i < x.length; i++){
-                        document.getElementById(x[i]).style.visibility = "hidden";
-                    }
-            }, 50);
-        }
-
-        function roll1 (x) {
-            for (i = 0; i < x.length; i++){
-               var p =  document.getElementsByClassName(x[i])
-               p[0].style.visibility = "visible"
-            }
-
-            setTimeout(() => {
-                for (i = 0; i < x.length; i++){
-                    var p =  document.getElementsByClassName(x[i])
-                    p[0].style.visibility = "hidden"
-                }
-            }, 50);
-        }
-
-        // the stop() and stop1() receives a random integer input from the now and makes the final dots of the dice roll visible
-        function stop(x){
-            for (i = 0; i < x.length; i++){
-                document.getElementById(x[i]).style.visibility = "visible";
-            }
-        }
-
-        function stop1(x){
-            for (i = 0; i < x.length; i++){
-               var p =  document.getElementsByClassName(x[i])
-               p[0].style.visibility = "visible"
-            }
-        }
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
