@@ -22,7 +22,7 @@ table {
 }
 
 .pic > div {
-        height: 100%;
+    height: 100%;
 }
 
 #eden {
@@ -104,12 +104,34 @@ table {
     position: relative;
 }
 
-.inner div {
+.inner div:not(.action) {
     display: inline-block;
     width: 45px;
     height: 45px;
     border-radius: 50%;
     border: 1px solid black;
+}
+
+.action {
+    position: absolute;
+    left: 40%;
+    top: 45%;
+    button {
+        padding: 10% 60%;
+        // border-radius: 20%;
+    }
+}
+
+.cell-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background-color: pink;
+  border: 1px black dashed;
+  border-radius: 50%;
 }
 
 .innerOne {
@@ -150,4 +172,8 @@ table {
 
 .yellow {
     background-color: $boxYellow;
+}
+
+.hide {
+    display: none;
 }
