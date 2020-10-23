@@ -10,73 +10,78 @@
 <body>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header choose">
                 <h5 class="modal-title" id="staticBackdropLabel">Choose your color</h5>
             </div>
             <div class="modal-body">
-                <form action="">
-                    <div class="form-group">
-                        <div>
-                            <label>Player1&nbsp;&nbsp;</label>
-                            <select name="" id="">
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="" >Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="">Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
+                <div class="choose">
+                    <form action="">
+                        <div class="form-group">
+                            <div >
+                                <label>Player1&nbsp;&nbsp;</label>
+                                <select id="playerOne1">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="" >Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                                <select id="playerOne2">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="">Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Player2&nbsp;&nbsp;</label>
+                                <select id="playerTwo1">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="">Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                                <select id="playerTwo2">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="">Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Player3&nbsp;&nbsp;</label>
+                                <select id="playerThree">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="">Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Player4&nbsp;&nbsp;</label>
+                                <select id="playerFour">
+                                    <option value="">--Choose a color--</option>
+                                    <option class="yellow" value="">Yellow</option>
+                                    <option class="green" value="">Green</option>
+                                    <option class="red" value="">Red</option>
+                                    <option class="blue" value="">Blue</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label>Player2&nbsp;&nbsp;</label>
-                            <select name="" id="">
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="">Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="">Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Player3&nbsp;&nbsp;</label>
-                            <select name="" id="">
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="">Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Player4&nbsp;&nbsp;</label>
-                            <select name="" id=""   >
-                                <option value="">--Choose a color--</option>
-                                <option class="yellow" value="">Yellow</option>
-                                <option class="green" value="">Green</option>
-                                <option class="red" value="">Red</option>
-                                <option class="blue" value="">Blue</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div id="message" class="bg-danger p-2 hide">
+                    You need to roll a six to get your seed in play <button class="btn ml-2 btn-primary" data-dismiss="modal">ok</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary m-auto" data-dismiss="modal">PLAY</button>
+            <div class="modal-footer choose">
+                <button type="button" class="btn btn-secondary m-auto" onclick="setPlayers()" data-dismiss="modal">PLAY</button>
             </div>
             </div>
         </div>
@@ -92,7 +97,8 @@
                             <div class="innerThree green"></div>
                             <div class="innerFour green"></div>
                             <div class="action">
-                                <button class="btn btn-danger">ROLL</button>
+
+                                <button class="btn btn-danger hide roll  Green">ROLL</button>
                             </div>
                         </div>
                     </div>
@@ -109,47 +115,47 @@
                             <div class="innerFour red"></div>
                         </div>
                         <div class="action">
-                            <button class="btn btn-danger">ROLL</button>
+                            <button class="btn btn-danger roll hide Red">ROLL</button>
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="red"></td>
-                <td class="red"></td>
+                <td class="red"><div class="cell-box"></div></td>
+                <td class="red"><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="red"></td>
-                <td><div class="cell-box"></div></td>
-            </tr>
-            <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"></td>
+                <td class="red"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="red"></td>
+                <td class="red"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="red"></td>
+                <td class="red"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="green"></td>
+                <td class="red"><div class="cell-box"></div></td>
+                <td><div class="cell-box"></div></td>
+            </tr>
+            <tr>
+                <td><div class="cell-box"></div></td>
+                <td class="green"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td rowspan="3" colspan="3"  class="home">
                     <div id="middle" class="pic">
-                        <div id="sixs"></div>
-                        <div id="dice" onclick="now()">
+                        <!-- <div id="sixs"></div> -->
+                        <div id="dice">
                             <div class="faces">
                                 <div id="faceOne"></div>
                                 <div id="faceTwo"></div>
@@ -186,16 +192,16 @@
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="green"></td>
-                <td class="green"></td>
-                <td class="green"></td>
-                <td class="green"></td>
-                <td class="green"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
+                <td class="green"><div class="cell-box"></div></td>
+                <td class="green"><div class="cell-box"></div></td>
+                <td class="green"><div class="cell-box"></div></td>
+                <td class="green"><div class="cell-box"></div></td>
+                <td class="green"><div class="cell-box"></div></td>
+                <td class="blue"><div class="cell-box"></div></td>
+                <td class="blue"><div class="cell-box"></div></td>
+                <td class="blue"><div class="cell-box"></div></td>
+                <td class="blue"><div class="cell-box"></div></td>
+                <td class="blue"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
@@ -209,7 +215,7 @@
                 <td><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
-                <td class="blue"></td>
+                <td class="blue"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
@@ -221,13 +227,14 @@
                             <div class="innerThree yellow"></div>
                             <div class="innerFour yellow"></div>
                             <div class="action">
-                                <button class="btn btn-danger">ROLL</button>
+
+                                <button class="btn btn-danger roll hide Yellow">ROLL</button>
                             </div>
                         </div>
                     </div>
                 </td>
                 <td><div class="cell-box"></div></td>
-                <td class="yellow"></td>
+                <td class="yellow"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
                 <td colspan="6" rowspan="6" class="blue">
                     <div class="pic">
@@ -237,7 +244,8 @@
                             <div class="innerThree blue"></div>
                             <div class="innerFour blue"></div>
                             <div class="action">
-                                <button class="btn btn-danger">ROLL</button>
+                                <!-- <p class="playing"> PLAYING</p> -->
+                                <button class="btn btn-danger hide roll Blue">ROLL</button>
                             </div>
                         </div>
                     </div>
@@ -246,22 +254,22 @@
             <tr>
 
                 <td><div class="cell-box"></div></td>
-                <td class="yellow"></td>
+                <td class="yellow"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="yellow"></td>
+                <td class="yellow"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
                 <td><div class="cell-box"></div></td>
-                <td class="yellow"></td>
+                <td class="yellow"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>
-                <td class="yellow"></td>
-                <td class="yellow"></td>
+                <td class="yellow"><div class="cell-box"></div></td>
+                <td class="yellow"><div class="cell-box"></div></td>
                 <td><div class="cell-box"></div></td>
             </tr>
             <tr>

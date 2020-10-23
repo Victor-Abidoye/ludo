@@ -114,12 +114,26 @@ table {
 
 .action {
     position: absolute;
-    left: 40%;
-    top: 45%;
-    button {
-        padding: 10% 60%;
-        // border-radius: 20%;
+    left: 35%;
+    top: 40%;
+    .playing {
+        width: 100%;
+        animation-name: blink;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        font-weight: bold;
     }
+    .roll {
+        width: 100%;
+    }
+}
+@keyframes blink {
+    0% {background-color: white;}
+    25% {background-color: wheat;}
+    50% {background-color: whitesmoke;}
+    75% {background-color: rgba(245, 245, 245, 0.719);}
+    100% {background-color: rgba(245, 245, 245, 0.329);}
 }
 
 .cell-box {
@@ -129,9 +143,10 @@ table {
   width: 100%;
   height: 100%;
   z-index: 3;
-  background-color: pink;
-  border: 1px black dashed;
-  border-radius: 50%;
+//   .yellow, .red, .blue, .green {
+//     border: 1px black dashed;
+//     border-radius: 50%;
+//   }
 }
 
 .innerOne {
