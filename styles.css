@@ -116,6 +116,13 @@ table {
     background-color: rgba(245, 245, 245, 0.719); }
   100% {
     background-color: rgba(245, 245, 245, 0.329); } }
+.picNumber {
+  display: inline;
+  border: 1px blue dashed;
+  font-size: xx-large;
+  padding: 2% 4%;
+  margin: 0 4%; }
+
 .cell-box {
   position: absolute;
   top: 0;

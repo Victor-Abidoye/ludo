@@ -79,6 +79,9 @@
                 <div id="message" class="bg-danger p-2 hide">
                     You need to roll a six to get your seed in play <button class="btn ml-2 btn-primary" data-dismiss="modal">ok</button>
                 </div>
+                <div id="pick">
+                    <!-- <div class="picNumber">6</div>+<div class="picNumber">5</div> -->
+                </div>
             </div>
             <div class="modal-footer choose">
                 <button type="button" class="btn btn-secondary m-auto" onclick="setPlayers()" data-dismiss="modal">PLAY</button>
@@ -92,10 +95,10 @@
                 <td colspan="6" rowspan="6" class="green">
                     <div class="pic">
                         <div id="eden" class="inner">
-                            <div class="innerOne green"></div>
-                            <div class="innerTwo green"></div>
-                            <div class="innerThree green"></div>
-                            <div class="innerFour green"></div>
+                            <div class="innerOne green" data-seed-color="green"></div>
+                            <div class="innerTwo green" data-seed-color="green"></div>
+                            <div class="innerThree green" data-seed-color="green"></div>
+                            <div class="innerFour green" data-seed-color="green"></div>
                             <div class="action">
 
                                 <button class="btn btn-danger hide roll  Green">ROLL</button>
@@ -103,16 +106,16 @@
                         </div>
                     </div>
                 </td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="10"></div></td>
+                <td><div class="cell-box" data-place="11"></div></td>
+                <td><div class="cell-box" data-place="12"></div></td>
                 <td colspan="6" rowspan="6" class="red">
                     <div class="pic">
                         <div id="luka" class="inner">
-                            <div class="innerOne red"></div>
-                            <div class="innerTwo red"></div>
-                            <div class="innerThree red"></div>
-                            <div class="innerFour red"></div>
+                            <div class="innerOne red" data-seed-color="red"></div>
+                            <div class="innerTwo red" data-seed-color="red"></div>
+                            <div class="innerThree red" data-seed-color="red"></div>
+                            <div class="innerFour red" data-seed-color="red"></div>
                         </div>
                         <div class="action">
                             <button class="btn btn-danger roll hide Red">ROLL</button>
@@ -121,37 +124,37 @@
                 </td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="9"></div></td>
+                <td class="red"><div class="cell-box" data-place="57"></div></td>
+                <td class="red"><div class="cell-box" data-place="13"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="8"></div></td>
+                <td class="red"><div class="cell-box" data-place="58"></div></td>
+                <td><div class="cell-box" data-place="14"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="7"></div></td>
+                <td class="red"><div class="cell-box" data-place="59"></div></td>
+                <td><div class="cell-box" data-place="15"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="6"></div></td>
+                <td class="red"><div class="cell-box" data-place="60"></div></td>
+                <td><div class="cell-box" data-place="16"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="red"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="5"></div></td>
+                <td class="red"><div class="cell-box" data-place="61"></div></td>
+                <td><div class="cell-box" data-place="17"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="51"></div></td>
+                <td class="green"><div class="cell-box" data-place="0"></div></td>
+                <td><div class="cell-box" data-place="1"></div></td>
+                <td><div class="cell-box" data-place="2"></div></td>
+                <td><div class="cell-box" data-place="3"></div></td>
+                <td><div class="cell-box" data-place="4"></div></td>
                 <td rowspan="3" colspan="3"  class="home">
                     <div id="middle" class="pic">
                         <!-- <div id="sixs"></div> -->
@@ -183,49 +186,49 @@
                         </div>
                     </div>
                 </td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="18"></div></td>
+                <td><div class="cell-box" data-place="19"></div></td>
+                <td><div class="cell-box" data-place="20"></div></td>
+                <td><div class="cell-box" data-place="21"></div></td>
+                <td><div class="cell-box" data-place="22"></div></td>
+                <td><div class="cell-box" data-place="23"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td class="green"><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="50"></div></td>
+                <td class="green"><div class="cell-box" data-place="52"></div></td>
+                <td class="green"><div class="cell-box" data-place="53"></div></td>
+                <td class="green"><div class="cell-box" data-place="54"></div></td>
+                <td class="green"><div class="cell-box" data-place="55"></div></td>
+                <td class="green"><div class="cell-box" data-place="56"></div></td>
+                <td class="blue"><div class="cell-box" data-place="66"></div></td>
+                <td class="blue"><div class="cell-box" data-place="65"></div></td>
+                <td class="blue"><div class="cell-box" data-place="64"></div></td>
+                <td class="blue"><div class="cell-box" data-place="63"></div></td>
+                <td class="blue"><div class="cell-box" data-place="62"></div></td>
+                <td><div class="cell-box" data-place="24" ></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td class="blue"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="49"></div></td>
+                <td><div class="cell-box" data-place="48"></div></td>
+                <td><div class="cell-box" data-place="47"></div></td>
+                <td><div class="cell-box" data-place="46"></div></td>
+                <td><div class="cell-box" data-place="45"></div></td>
+                <td><div class="cell-box" data-place="44"></div></td>
+                <td><div class="cell-box" data-place="30"></div></td>
+                <td><div class="cell-box" data-place="29"></div></td>
+                <td><div class="cell-box" data-place="28"></div></td>
+                <td><div class="cell-box" data-place="27"></div></td>
+                <td class="blue"><div class="cell-box" data-place="26"></div></td>
+                <td><div class="cell-box" data-place="25"></div></td>
             </tr>
             <tr>
                 <td colspan="6" rowspan="6" class="yellow">
                     <div class="pic">
                         <div id="karim" class="inner">
-                            <div class="innerOne yellow"></div>
-                            <div class="innerTwo yellow"></div>
-                            <div class="innerThree yellow"></div>
-                            <div class="innerFour yellow"></div>
+                            <div class="innerOne yellow" data-seed-color="yellow"></div>
+                            <div class="innerTwo yellow" data-seed-color="yellow"></div>
+                            <div class="innerThree yellow" data-seed-color="yellow"></div>
+                            <div class="innerFour yellow" data-seed-color="yellow"></div>
                             <div class="action">
 
                                 <button class="btn btn-danger roll hide Yellow">ROLL</button>
@@ -233,16 +236,16 @@
                         </div>
                     </div>
                 </td>
-                <td><div class="cell-box"></div></td>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="43"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="71"></div></td>
+                <td><div class="cell-box" data-place="31"></div></td>
                 <td colspan="6" rowspan="6" class="blue">
                     <div class="pic">
                         <div id="marcelo" class="inner">
-                            <div class="innerOne blue"></div>
-                            <div class="innerTwo blue"></div>
-                            <div class="innerThree blue"></div>
-                            <div class="innerFour blue"></div>
+                            <div class="innerOne blue" data-seed-color="blue"></div>
+                            <div class="innerTwo blue" data-seed-color="blue"></div>
+                            <div class="innerThree blue" data-seed-color="blue"></div>
+                            <div class="innerFour blue" data-seed-color="blue"></div>
                             <div class="action">
                                 <!-- <p class="playing"> PLAYING</p> -->
                                 <button class="btn btn-danger hide roll Blue">ROLL</button>
@@ -252,30 +255,29 @@
                 </td>
             </tr>
             <tr>
-
-                <td><div class="cell-box"></div></td>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="42"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="70"></div></td>
+                <td><div class="cell-box" data-place="32"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="41"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="69"></div></td>
+                <td><div class="cell-box" data-place="33"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="40"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="68"></div></td>
+                <td><div class="cell-box" data-place="34"></div></td>
             </tr>
             <tr>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td class="yellow"><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="39"></div></td>
+                <td class="yellow"><div class="cell-box" data-place="67"></div></td>
+                <td><div class="cell-box" data-place="35"></div></td>
             </tr>
             <tr>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
-                <td><div class="cell-box"></div></td>
+                <td><div class="cell-box" data-place="38"></div></td>
+                <td><div class="cell-box" data-place="37"></div></td>
+                <td><div class="cell-box" data-place="36"></div></td>
             </tr>
         </table>
     </div>

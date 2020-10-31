@@ -22,6 +22,23 @@ $('#staticBackdrop').modal('show')
       })
   })
 
+  // function colorCodeArr returns an array code for each color
+  // The array code are in the order [start, turn, home]
+  // start contains the data-place for the color to move from home
+  // turn is the data-place for the  entrace to the home for each seed
+  // home is the data-place to return  home for each color
+function colorCodeArr () {
+  if (toMoveColor == 'green') {
+    return [0, 50, 52]
+  } else if (toMoveColor == 'red') {
+    return [13, 11, 57]
+  } else if (toMoveColor == 'blue') {
+    return [26, 24, 61]
+  } else {
+     return [39, 37, 66]
+    }
+  }
+
 // player contains an array player color array
 var player
 // Sets the first player index to 0 at the beginning of the game
@@ -125,19 +142,13 @@ $('.roll').on('click', function () {
       console.log(rolled)
       activateSeed = true
       if (canMove(rgby[currentPlayer])) {
-        return
+
       }
       if (a == c && a == 5) {
         activateSeed = false
         nextPlayer(player[currentPlayer])
         $('.roll').prop('disabled', false)
         $('.roll').text('ROLL')
-        // setTimeout(() => {
-        //   var div = `<div id="six"></div><div id="six"></div>`
-        //   document.getElementById('sixs').innerHTML =
-        //     document.getElementById('sixs').innerHTML + div
-        //   now()
-        // }, 1000)
       }
     }, 100)
   }, 2000)
@@ -151,15 +162,8 @@ function canMove (playerSeedOut) {
       $('#staticBackdrop').modal('show')
       $('#message').removeClass('hide')
       $('.choose').css('display', 'none')
-      $('.roll').prop('disabled', false)
-      $('.roll').text('ROLL')
-      activateSeed = false
-      player[currentPlayer].forEach(element => {
-        $('.' + element).addClass('hide')
-      });
-      rolled = []
-      changeCurrentPlayer()
-      nextPlayer(player[currentPlayer])
+      $('#pick').html("")
+      toChangeRoller()
       break
     } else {
       return true
@@ -167,13 +171,144 @@ function canMove (playerSeedOut) {
   };
 }
 
-// On click on any seed, check if such seed is owned by the current player befor performing any operation
-$('.inner div').on('click', function () {
+// toChangeRoller() changes the disables the roll for the current player and enables the action for the next player
+// it passes turn in the way
+function toChangeRoller () {
+  $('.roll').prop('disabled', false)
+  $('.roll').text('ROLL')
+  activateSeed = false
+  player[currentPlayer].forEach((element) => {
+    $('.' + element).addClass('hide')
+  })
+  rolled = []
+  changeCurrentPlayer()
+  nextPlayer(player[currentPlayer])
+}
+
+
+// This variable holds the true or false value of whether a seed clicked is at home or not
+var homeDice = false
+// toMoveColor is the selected color to be moved
+var toMoveColor
+
+// On click on any seed, check if such seed is owned by the current player before performing any operation
+$('.inner div:not(.action)').on('click', function () {
   if (
     ($(this).hasClass(player[currentPlayer][0].toLowerCase()) ||
     $(this).hasClass(player[currentPlayer][player[currentPlayer].length - 1].toLowerCase())) && activateSeed == true
   ) {
-    alert()
+    toMoveColor = this.dataset.seedColor
+    homeDice = true
+    $(this).css('display', 'none')
+    $(this).addClass('hide')
+    displayDice()
+  }
+})
+
+
+// The sendMove() controls the moving of each seed
+function sendMove (num, here) {
+  if (homeDice) {
+    // if a seed clicked is in stil at home a SIX has to be rolled
+    // if this is true the seed should be brought out of the box
+    homeDice = false
+    if (num == 6 && here != 'here') {
+      var a = `<div style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${toMoveColor}; border: 1px black solid;"></div>`
+      var x = colorCodeArr()
+      console.log(x)
+      $(`[data-place=${x[0]}]`).html(a)
+      $(`[data-place=${x[0]}]`).attr("data-color", toMoveColor)
+      var currentColorPosition = player[currentPlayer].indexOf(toMoveColor[0].toUpperCase() + toMoveColor.substring(1, toMoveColor.length))
+      rgby[currentPlayer][currentColorPosition]++
+      rolled.splice(rolled.indexOf(num), 1)
+      if (rolled.length == 0) {
+        toChangeRoller()
+      }
+    }
+  } else {
+    // takes count of the number of times a seed is to move
+    var counter = 0
+    // this contians the data-color value for the previous seed in a cell box
+    var storeDataColor = ""
+   // this is updated to contain the content of the HTML content of the box the current seed is to move to
+    var previous = ""
+    // the check var is a setInterval function that is called every 500ms to change the position of a seed
+    var check = setInterval(function () {
+      counter++
+      // clear current position
+
+      // assign content to be the html content of the seed to be moved
+      var content = $(`[data-place=${myPosition}]`).html()
+
+      // changes the value of the data-color property to empty
+      $(`[data-place=${myPosition}]`).attr('data-color', '')
+      // data-color  is changed to it's previous content and the previous seed is put back in place if they are the same
+      if (previous != content) {
+        $(`[data-place=${myPosition}]`).html(previous)
+        $(`[data-place=${myPosition}]`).attr('data-color', storeDataColor)
+      }
+      // move seed to the next cell box
+
+      myPosition++
+      if (myPosition == 52) {
+        myPosition = 0
+      }
+      previous = $(`[data-place=${myPosition}]`).html()
+      storeDataColor = $(`[data-place=${myPosition}]`).attr('data-color')
+      $(`[data-place=${myPosition}]`).html(content)
+      $(`[data-place=${myPosition}]`).attr('data-color', toMoveColor)
+      // clear this interval when seed has moved num number of seeds
+      if (counter == num) {
+        clearInterval(check)
+        rolled.splice(rolled.indexOf(num), 1)
+        // if the number clicked is the sum, empty rolled after moving
+        if (here == 'here') {
+          rolled = []
+        }
+        if (rolled.length == 0) {
+          toChangeRoller()
+        }
+      }
+    }, 500)
+  }
+}
+
+// sum is the total of the 2 dice rolled
+var sum
+
+// displayDice() displays as a modal the nunber of the dice rolled for movement
+function displayDice () {
+  var myMessage = `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
+  sum = rolled[0]
+  for (i = 1; i < rolled.length; i++){
+    sum+=rolled[i]
+    myMessage += `+<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+  }
+  myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
+  $('#pick').html(myMessage)
+  $('#staticBackdrop').modal('show')
+  $('.choose').css('display', 'none')
+  $('#message').addClass('hide')
+}
+
+// contains the data-place value of a cliked cell-box
+// which is the position of the current clicked seed in the board
+var myPosition
+
+// on click of the any cell-box, check the content of the box to know the seed
+// if the seed belongs to the current player and he has rolled the dice, then display update teh position and the tomove color
+// also call the displayDice() to show the dice rolled for movement
+$('.cell-box').on('click', function () {
+  console.log(this.dataset.color)
+  if (
+    (player[currentPlayer][0].toLowerCase() == this.dataset.color ||
+    player[currentPlayer][player[currentPlayer].length - 1].toLowerCase() == this.dataset.color) && rolled.length != 0
+  ) {
+    myPosition = this.dataset.place
+    console.log(myPosition)
+    toMoveColor = this.dataset.color
+    console.log(toMoveColor)
+    displayDice()
   }
 })
 
@@ -217,8 +352,6 @@ $('.inner div').on('click', function () {
       p[0].style.visibility = 'visible'
     }
 }
-
-
 // })
 
 
