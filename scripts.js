@@ -135,7 +135,7 @@ $('.roll').on('click', function () {
   setTimeout(() => {
     clearInterval(myVar)
     setTimeout(() => {
-      stop(b[a])
+      stops(b[a])
       stop1(b[c])
       rolled.push(a + 1)
       rolled.push(c + 1)
@@ -191,16 +191,20 @@ var homeDice = false
 // toMoveColor is the selected color to be moved
 var toMoveColor
 
+var chosen
 // On click on any seed, check if such seed is owned by the current player before performing any operation
 $('.inner div:not(.action)').on('click', function () {
   if (
     ($(this).hasClass(player[currentPlayer][0].toLowerCase()) ||
     $(this).hasClass(player[currentPlayer][player[currentPlayer].length - 1].toLowerCase())) && activateSeed == true
   ) {
+    if (!rolled.includes(6)) {
+      return
+    }
     toMoveColor = this.dataset.seedColor
     homeDice = true
-    $(this).css('display', 'none')
-    $(this).addClass('hide')
+    console.log($(this))
+    chosen = $(this)
     displayDice()
   }
 })
@@ -213,14 +217,24 @@ function sendMove (num, here) {
     // if this is true the seed should be brought out of the box
     homeDice = false
     if (num == 6 && here != 'here') {
+      var storeDataColor = ''
       var a = `<div style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${toMoveColor}; border: 1px black solid;"></div>`
+      $(chosen).css('display', 'none')
+      $(chosen).addClass('remove')
+      chosen = ""
       var x = colorCodeArr()
       console.log(x)
+      storeDataColor = $(`[data-place=${x[0]}]`).attr('data-color')
+      storeDataColor == undefined ? storeDataColor = "" : storeDataColor = storeDataColor
       $(`[data-place=${x[0]}]`).html(a)
       $(`[data-place=${x[0]}]`).attr("data-color", toMoveColor)
       var currentColorPosition = player[currentPlayer].indexOf(toMoveColor[0].toUpperCase() + toMoveColor.substring(1, toMoveColor.length))
       rgby[currentPlayer][currentColorPosition]++
       rolled.splice(rolled.indexOf(num), 1)
+      if (kill(storeDataColor, toMoveColor)) {
+        $(`[data-place=${x[0]}]`).html("")
+        $(`[data-place=${x[0]}]`).attr('data-color', "")
+      }
       if (rolled.length == 0) {
         toChangeRoller()
       }
@@ -240,13 +254,13 @@ function sendMove (num, here) {
       // assign content to be the html content of the seed to be moved
       var content = $(`[data-place=${myPosition}]`).html()
 
-      // changes the value of the data-color property to empty
-      $(`[data-place=${myPosition}]`).attr('data-color', '')
-      // data-color  is changed to it's previous content and the previous seed is put back in place if they are the same
-      if (previous != content) {
-        $(`[data-place=${myPosition}]`).html(previous)
-        $(`[data-place=${myPosition}]`).attr('data-color', storeDataColor)
+      // replaces the content of the current cell box with its former content
+      $(`[data-place=${myPosition}]`).attr('data-color', storeDataColor)
+      $(`[data-place=${myPosition}]`).html(previous)
+      if (previous == "") {
+        $(`[data-place=${myPosition}]`).attr('data-color', "")
       }
+
       // move seed to the next cell box
 
       myPosition++
@@ -254,13 +268,22 @@ function sendMove (num, here) {
         myPosition = 0
       }
       previous = $(`[data-place=${myPosition}]`).html()
+      console.log(previous)
       storeDataColor = $(`[data-place=${myPosition}]`).attr('data-color')
       $(`[data-place=${myPosition}]`).html(content)
       $(`[data-place=${myPosition}]`).attr('data-color', toMoveColor)
       // clear this interval when seed has moved num number of seeds
+      console.log(toMoveColor[0].toUpperCase() +toMoveColor.substring(1,toMoveColor.length))
+      console.log(player[currentPlayer][player[currentPlayer].indexOf(toMoveColor[0].toUpperCase() +toMoveColor.substring(1,toMoveColor.length))])
       if (counter == num) {
         clearInterval(check)
         rolled.splice(rolled.indexOf(num), 1)
+        storeDataColor == undefined ? storeDataColor = "" : storeDataColor = storeDataColor
+
+        if (kill(storeDataColor, toMoveColor)) {
+          $(`[data-place=${myPosition}]`).html("")
+          $(`[data-place=${myPosition}]`).attr('data-color', "")
+        }
         // if the number clicked is the sum, empty rolled after moving
         if (here == 'here') {
           rolled = []
@@ -273,21 +296,97 @@ function sendMove (num, here) {
   }
 }
 
+function kill (x, y) {
+  console.log(x)
+  console.log(y)
+  if (x != "") {
+    if (!(player[currentPlayer].includes(x[0].toUpperCase() + x.substring(1, x.length)))) {
+      alert(y + " kills " + x)
+      var show = $(`.remove.${x}`)[0]
+      $(show).css('display', 'inline-block')
+      $(show).removeClass('remove')
+      var z = []
+      var z1 = []
+      for (a = 0; a < player.length; a++){
+        for (b = 0; b < player[a].length; b++){
+          if (player[a][b] == x[0].toUpperCase() + x.substring(1, x.length)) {
+            z = [a, b]
+            console.log(z)
+          } else if (player[a][b] == y[0].toUpperCase() + y.substring(1, y.length))
+            z1 = [a, b]
+        }
+      }
+      // var z = player[currentPlayer][player[currentPlayer].indexOf(x[0].toUpperCase() + x.substring(1, x.length))]
+      // var z1 = player[currentPlayer][player[currentPlayer].indexOf(y[0].toUpperCase() + y.substring(1, y.length))]
+      rgby[z[0]][z[1]]--
+      rgby[z1[0]][z1[1]]--
+      return true
+  }
+  }
+
+}
+
 // sum is the total of the 2 dice rolled
 var sum
 
 // displayDice() displays as a modal the nunber of the dice rolled for movement
 function displayDice () {
-  var myMessage = `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
-  sum = rolled[0]
-  for (i = 1; i < rolled.length; i++){
-    sum+=rolled[i]
-    myMessage += `+<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+  var myMessage = `<button id="myBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>`
+  if (rgby[currentPlayer][0] == 0 && rgby[currentPlayer][rgby[currentPlayer].length - 1] == 0 && rolled.includes(6)) {
+    if (rolled[0] == 6) {
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
+    } else {
+      myMessage += `<div class="picNumber"style="background-color: yellow">${rolled[0]}</div>`
+    }
+
+    sum = rolled[0]
+    for (i = 1; i < rolled.length; i++) {
+      sum += rolled[i]
+      if (rolled[i] == 6) {
+        myMessage += `+<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+      } else {
+        myMessage += `+<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+      }
+    }
+    myMessage += `=<div class="picNumber" style="background-color: yellow">${sum}</div>`
+  } else if ((rgby[currentPlayer].length == 1 && rgby[currentPlayer][0] == 1) ||
+    (rgby[currentPlayer].length == 2 && (rgby[currentPlayer].includes(0) && rgby[currentPlayer].includes(1)))) {
+
+    if (rolled[0] == 6 && homeDice) {
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
+    } else {
+      myMessage += `<div class="picNumber"style="background-color: yellow">${rolled[0]}</div>`
+    }
+    sum = rolled[0]
+    for (i = 1; i < rolled.length; i++) {
+      sum += rolled[i]
+      if (rolled[i] == 6 && homeDice) {
+        myMessage += `+<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+      } else {
+        myMessage += `+<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+      }
+    }
+    if (rolled.includes(6) && homeDice){
+        myMessage += `=<div class="picNumber" style="background-color: yellow">${sum}</div>`
+    } else {
+      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
+    }
+
+  } else {
+     myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
+     sum = rolled[0]
+     for (i = 1; i < rolled.length; i++) {
+       sum += rolled[i]
+       myMessage += `+<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+     }
+     myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
   }
-  myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
   $('#pick').html(myMessage)
   $('#staticBackdrop').modal('show')
   $('.choose').css('display', 'none')
+  $('myBtn').removeClass('hide')
   $('#message').addClass('hide')
 }
 
@@ -340,7 +439,7 @@ $('.cell-box').on('click', function () {
   }
 
   // the stop() and stop1() receives a random integer input from the now and makes the final dots of the dice roll visible
-  function stop(x) {
+  function stops(x) {
     for (i = 0; i < x.length; i++) {
       document.getElementById(x[i]).style.visibility = 'visible'
     }
