@@ -3,11 +3,31 @@ $boxRed: rgba(230, 20, 20, 0.925);
 $boxBlue: rgba(45, 137, 173, 0.877);
 $boxYellow: rgb(241, 241, 41);
 
+body {
+    margin: 0;
+    background-color: black;
+}
+
+// #staticBackdrop {
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 9;
+// }
+
+#playarea {
+  position: relative;
+  width: 100vh;
+  height: 100vh;
+  margin: auto;
+}
+
 table {
     border-collapse: collapse;
-    height: 100vh;
-    width: 100vh;
-    margin: auto;
+    // height: 100vh;
+    // width: 100vh;
+    // margin: auto;
+    border: 1px solid;
+    height: 100%;
+    width: 100%;
     td {
         height: calc(100% / 14 + 3);
         width: calc(100% / 14 + 3);
@@ -106,8 +126,10 @@ table {
 
 .inner div:not(.action) {
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    // width: 45px;
+    width: 15%;
+    // height: 45px;
+    height: 15%;
     border-radius: 50%;
     border: 1px solid black;
 }
@@ -198,4 +220,8 @@ table {
 
 .hide {
     display: none;
+}
+
+#up{
+    height: 40%;
 }
