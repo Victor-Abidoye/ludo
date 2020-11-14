@@ -48,7 +48,7 @@ var currentPlayer = 0
 // an array to contain the number of seeds a current player has outside the home
 var rgby = []
 // keeps the record of digits rolled on dice
-var rolled = [6, 6, 6, 6]
+var rolled = []
 // activateSeed is set to false and is set to true to enable seed selection at the END of rollin the dice
 var activateSeed = false
 
