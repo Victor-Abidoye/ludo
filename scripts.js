@@ -176,7 +176,23 @@ $('.roll').on('click', function () {
       }
 
       if (canMove(rgby[currentPlayer])) {
+        if (!(checkEntry())) {
+          var hi = player[currentPlayer][0].toLowerCase()
+          var hij = player[currentPlayer][player[currentPlayer].length - 1].toLowerCase()
+          if (rolled.includes(6) && (home[hi] > 0 || home[hij] > 0)) {
 
+          } else {
+            console.log('tuple')
+            toChangeRoller()
+            return
+          }
+        }
+
+
+        // if (!(rolled.includes(6)) && !(checkEntry())) {
+        //   console.log('tuple')
+        //   toChangeRoller()
+        // }
       } else {
         $('#staticBackdrop').modal('show')
         $('#message').removeClass('hide')
@@ -202,6 +218,7 @@ function singularCheck (a) {
   console.log('hip')
   for (h = 0; h < player[currentPlayer].length; h++) {
     var x = $(`.${player[currentPlayer][h].toLowerCase() + 'seed'}`)
+    console.log(x)
     for (i = 0; i < x.length; i++) {
       var place = x[i].parentElement.dataset.place
       var my_code = colorCodeArr(player[currentPlayer][h].toLowerCase())
@@ -210,14 +227,18 @@ function singularCheck (a) {
       console.log('sd')
       if (a == place && double[place] == undefined ) {
         continue
-      }
-      console.log(distance)
 
-      for (j = 0; j < rolled.length; j++) {
-        if (rolled[i] <= distance) {
-          return true
+      } else {
+        console.log(distance)
+
+        for (j = 0; j < rolled.length; j++) {
+          console.log('dlsek')
+          if (rolled[i] <= distance) {
+            return true
+          }
         }
       }
+
     }
 
   }
@@ -377,7 +398,10 @@ $('.inner div:not(.action)').on('click', function () {
 function presendMOve (num) {
   var x = num - 6
   sendMove(6, 1)
-
+  if (num == 6) {
+    return
+  }
+  alert()
   sendMove(x, 1)
   rolled = []
 }
@@ -390,6 +414,7 @@ var active = true
 var trouble = 0
 // The sendMove() controls the moving of each seed
 function sendMove (num, here) {
+
   if (homeDice) {
     // if a seed clicked is in stil at home a SIX has to be rolled
     // if this is true the seed should be brought out of the box
@@ -448,6 +473,7 @@ function sendMove (num, here) {
         toChangeRoller()
       }
     }
+    trouble = 0
   } else {
     active = false
     // takes count of the number of times a seed is to move
@@ -573,6 +599,20 @@ function sendMove (num, here) {
           rolled = []
         }
 
+        if (rolled > 0) {
+          if (!checkEntry()) {
+            var hi = player[currentPlayer][0].toLowerCase()
+            var hij = player[currentPlayer][player[currentPlayer].length - 1].toLowerCase()
+            if (rolled.includes(6) && (home[hi] > 0 || home[hij] > 0)) {
+
+            } else {
+              console.log('tupular')
+              toChangeRoller()
+              return
+            }
+
+          }
+        }
         // if (rolled.length > 0) {
         //   if (!checkEntry()) {
         //     toChangeRoller()
@@ -583,6 +623,7 @@ function sendMove (num, here) {
           toChangeRoller()
         }
       }
+      trouble = 0
     }, 500)
   }
 }
