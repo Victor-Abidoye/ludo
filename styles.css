@@ -179,4 +179,13 @@ table {
 #up {
   height: 40%; }
 
+.inner div, .yellowseed, .redseed, .blueseed, .greenseed {
+  cursor: pointer; }
+
+.picNumber:not(.unmove) {
+  cursor: pointer; }
+
+.unmove {
+  cursor: not-allowed; }
+
 /*# sourceMappingURL=styles.css.map */

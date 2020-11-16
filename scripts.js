@@ -233,7 +233,7 @@ function singularCheck (a) {
 
         for (j = 0; j < rolled.length; j++) {
           console.log('dlsek')
-          if (rolled[i] <= distance) {
+          if (rolled[j] <= distance) {
             return true
           }
         }
@@ -279,7 +279,7 @@ function Check () {
       var p = player[currentPlayer][0].toLowerCase()
       var q = player[currentPlayer][player[currentPlayer].length - 1].toLowerCase()
       if (rolled.includes(6) && (home[p] > 0 || home[q] > 0)) {
-        alert()
+        // alert()
         return unmovable
       } else {
         toChangeRoller()
@@ -309,7 +309,7 @@ function checkEntry () {
       console.log(distance)
 
       for (j = 0; j < rolled.length; j++) {
-        if (rolled[i] <= distance) {
+        if (rolled[j] <= distance) {
           return true
         }
       }
@@ -401,7 +401,7 @@ function presendMOve (num) {
   if (num == 6) {
     return
   }
-  alert()
+  // alert()
   sendMove(x, 1)
   rolled = []
 }
@@ -655,7 +655,7 @@ function kill (x, y) {
 
       return true
     } else {
-      alert()
+      // alert()
       // update an object array that contains the "data-place" number as key and an array of data-color as value
       if (double[myPosition] == undefined) {
         double[myPosition] = [x]
@@ -682,7 +682,7 @@ function displayDice () {
     for (i = 0; i < rolled.length; i++){
       sum += rolled[i]
       if (homeDice && rolled[i] != 6) {
-        myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div> +`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
       } else {
         myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
       }
@@ -692,11 +692,11 @@ function displayDice () {
     myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum}, 'here')">${sum}</div>`
 
   } else if (rgby[currentPlayer][0] == 0 && rgby[currentPlayer][rgby[currentPlayer].length - 1] == 0 && rolled.includes(6)) {
-      myMessage += `<div class="picNumber"style="background-color: yellow">${rolled[0]}</div>`
+    myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
       sum = rolled[0]
       for (i = 1; i < rolled.length; i++) {
         sum += rolled[i]
-        myMessage += `+<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+        myMessage += `+<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
       }
 
       myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
@@ -708,16 +708,16 @@ function displayDice () {
       if (rolled[0] == 6) {
         myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
       } else {
-        myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[0]}</div>`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
       }
     } else {
       if (rolled[0] == 6) {
-        myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[0]}</div>`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
       } else {
         if (rolled.includes(6)){
-          myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
+          myMessage += `<div class="picNumber unmove" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
         } else {
-          myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[0]}</div>`
+          myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
         }
       }
     }
@@ -728,16 +728,16 @@ function displayDice () {
         if (rolled[i] == 6) {
           myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
         } else {
-          myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+          myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
         }
       } else {
         if (rolled[i] == 6) {
-          myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+          myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
         } else {
           if (rolled.includes(6)) {
-            myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
+            myMessage += `<div class="picNumber unmove" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
           } else {
-            myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+            myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
           }
         }
       }
@@ -751,7 +751,7 @@ function displayDice () {
           myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
         }
       } else {
-        myMessage += `=<div class="picNumber" style="background-color: yellow">${sum}</div>`
+        myMessage += `=<div class="picNumber unmove" style="background-color: darkgray">${sum}</div>`
       }
     } else {
       myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
@@ -771,7 +771,7 @@ function displayDice () {
         if (rolled[i] == 6) {
           myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
         } else {
-          myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div> +`
+          myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
         }
       }
       myMessage = myMessage.substr(0, myMessage.length - 1)
@@ -791,7 +791,7 @@ function displayDice () {
         if (rolled.includes(6) && rolled[i] != 6 && (home[p] > 0 || home[q] > 0)) {
           myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
         } else {
-          myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div> +`
+          myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
         }
 
       }
@@ -807,7 +807,7 @@ function displayDice () {
 
     if (homeDice) {
       if (rolled[0] != 6) {
-       myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[0]}</div>`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
       } else {
         myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[0]})">${rolled[0]}</div>`
       }
@@ -819,7 +819,7 @@ function displayDice () {
       sum += rolled[i]
     if (homeDice) {
       if (rolled[i] != 6) {
-       myMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
       } else {
         myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>`
       }
@@ -876,13 +876,13 @@ $('.cell-box').on('click', function () {
       for (i = 0; i < rolled.length; i++){
         sum+= rolled[i]
         if (status.includes(rolled[i])) {
-          myOwnMessage += `<div class="picNumber" style="background-color: yellow">${rolled[i]}</div>+`
+          myOwnMessage += `<div class="picNumber" style="background-color: darkgray">${rolled[i]}</div>+`
         } else {
           myOwnMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div>+`
         }
       }
       myOwnMessage = myOwnMessage.substr(0, myOwnMessage.length - 1)
-      myOwnMessage += `=<div class="picNumber" style="background-color: yellow">${sum}</div>`
+      myOwnMessage += `=<div class="picNumber" style="background-color: darkgray">${sum}</div>`
       $('#pick').html(myOwnMessage)
       $('#staticBackdrop').modal('show')
       $('.choose').css('display', 'none')
