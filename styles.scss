@@ -1,7 +1,12 @@
 $boxGreen: rgba(10, 83, 10, 0.925);
 $boxRed: rgba(230, 20, 20, 0.925);
-$boxBlue: rgba(45, 137, 173, 0.877);
+$boxBlue: #2A73CC;
 $boxYellow: rgb(241, 241, 41);
+
+// $boxGreen: green;
+// $boxRed: red;
+// $boxYellow: yellow;
+// $boxBlue: rgb(26, 26, 238);
 
 body {
     margin: 0;
@@ -148,6 +153,17 @@ table {
     100% {background-color: rgba(245, 245, 245, 0.329);}
 }
 
+#pick {
+    display: none;
+}
+
+#picks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: xx-large;
+}
+
 .picNumber {
     display: inline;
     border: 1px blue dashed;
@@ -210,10 +226,6 @@ table {
 
 #up{
     height: 40%;
-}
-
-.inner div, .yellowseed, .redseed, .blueseed, .greenseed {
-    cursor: pointer;
 }
 
 .picNumber:not(.unmove){

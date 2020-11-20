@@ -118,11 +118,16 @@ function changeCurrentPlayer () {
 // Takes in as input an array containing the home colors of the current player and activates those color for rolling
 // by hiding the roll button in each
 function nextPlayer (x) {
+  // for each seed of the next player, set the cursor properter as pointer
   x.forEach(element => {
     $('.' + element).removeClass("hide")
+    $('.' + element.toLowerCase() + 'seed').css('cursor', 'pointer')
+    var count = ['One', 'Two', 'Three', 'Four']
+    for (i = 0; i < count.length; i++) {
+      $(`.${element.toLowerCase()} .inner${count[i]}`).css('cursor', 'pointer')
+    }
   });
 }
-
 
 // DICE ROLL  CONTROL
 // array of classes that controls dice dots
@@ -185,8 +190,9 @@ $('.roll').on('click', function () {
       } else {
         $('#staticBackdrop').modal('show')
         $('#message').removeClass('hide')
+        $('#pick').css('display', 'none')
         $('.choose').css('display', 'none')
-        $('#pick').html("")
+        $('#picks').html("")
         toChangeRoller()
         return
       }
@@ -317,14 +323,20 @@ function toChangeRoller () {
   $('.roll').prop('disabled', false)
   $('.roll').text('ROLL')
   activateSeed = false
+
+  // before changeing the current player, make all cursor of both seed outside and at home not-allowed
   player[currentPlayer].forEach((element) => {
     $('.' + element).addClass('hide')
+    $('.' + element.toLowerCase() + 'seed').css('cursor', 'not-allowed')
+    var count = ['One', 'Two', 'Three', 'Four']
+    for (i = 0; i < count.length; i++){
+      $(`.${element.toLowerCase()} .inner${count[i]}`).css('cursor', 'not-allowed')
+    }
   })
   rolled = []
   changeCurrentPlayer()
   nextPlayer(player[currentPlayer])
 }
-
 
 // This variable holds the true or false value of whether a seed clicked is at home or not
 var homeDice = false
@@ -376,7 +388,7 @@ function sendMove (num, here) {
     homeDice = false
     if (num == 6 && here != 'here') {
       var storeDataColor = ''
-      var a = `<div class="${toMoveColor + 'seed'} " style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${toMoveColor}; border: 1px black solid;"></div>`
+      var a = `<div class="${toMoveColor + 'seed'} ${toMoveColor}" style="position: absolute; border-radius: 50%; height: 90%; width: 90%; border: 1px black solid;"></div>`
 
       //The selected seed is hidden and a remove class is added to it to indicate its dissaperance
       $(chosen).css('display', 'none')
@@ -415,7 +427,7 @@ function sendMove (num, here) {
           // updates the current cell box with the previous seed properties
           if (myPosition in double) {
             $(`[data-place=${myPosition}]`).attr('data-color', double[myPosition][double[myPosition].length - 1])
-            $(`[data-place=${myPosition}]`).html(`<div class= ${double[myPosition][double[myPosition].length - 1] + 'seed'} style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${double[myPosition][double[myPosition].length - 1]}; border: 1px black solid;"></div>`)
+            $(`[data-place=${myPosition}]`).html(`<div class= '${double[myPosition][double[myPosition].length - 1] + 'seed'} ${double[myPosition][double[myPosition].length - 1]}' style="position: absolute; border-radius: 50%; height: 90%; width: 90%; border: 1px black solid;"></div>`)
             double[myPosition].splice(double[myPosition].length - 1, 1)
 
             // if the double object with the key as the current data-place is empty then, delente the data-place entry from the double's object
@@ -446,7 +458,7 @@ function sendMove (num, here) {
     // the current cell box has multiplse seed, the store data holds the second seed as it's content to be replaced when the seed on top has been moved
     if (myPosition in double) {
       storeDataColor = double[myPosition][double[myPosition].length - 1]
-      previous = `<div class=${storeDataColor + 'seed'} style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${storeDataColor}; border: 1px black solid;"></div>`
+      previous = `<div class='${storeDataColor + 'seed'} ${storeDataColor}' style="position: absolute; border-radius: 50%; height: 90%; width: 90%; border: 1px black solid;"></div>`
       double[myPosition].splice(double[myPosition].length - 1, 1)
       if (double[myPosition].length == 0) {
         delete double[myPosition]
@@ -528,7 +540,7 @@ function sendMove (num, here) {
             // updates the current cell box with the previous seed properties
             if (myPosition in double) {
               $(`[data-place=${myPosition}]`).attr('data-color', double[myPosition][double[myPosition].length - 1])
-              $(`[data-place=${myPosition}]`).html(`<div class= ${double[myPosition][double[myPosition].length - 1] + 'seed'} style="position: absolute; border-radius: 50%; height: 90%; width: 90%; background-color: ${double[myPosition][double[myPosition].length - 1]}; border: 1px black solid;"></div>`)
+              $(`[data-place=${myPosition}]`).html(`<div class= '${double[myPosition][double[myPosition].length - 1] + 'seed'} ${double[myPosition][double[myPosition].length - 1]}' style="position: absolute; border-radius: 50%; height: 90%; width: 90%; border: 1px black solid;"></div>`)
               double[myPosition].splice(double[myPosition].length - 1, 1)
               if (double[myPosition].length == 0) {
                 delete double[myPosition]
@@ -611,9 +623,7 @@ var sum
 
 // displayDice() displays as a modal the nunber of the dice rolled for movement
 function displayDice () {
-  var myMessage = `<button id="myBtn" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reset()">
-                <span aria-hidden="true">&times;</span>
-                </button>`
+  myMessage = ''
   // if a double was rolled
   if (rolled.length > 2) {
     sum = 0
@@ -624,8 +634,8 @@ function displayDice () {
       } else {
         myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
       }
-
     }
+
     myMessage = myMessage.substr(0, myMessage.length - 1)
     myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum}, 'here')">${sum}</div>`
 
@@ -715,8 +725,8 @@ function displayDice () {
         } else {
           myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
         }
-
       }
+
       myMessage = myMessage.substr(0, myMessage.length - 1)
       myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum}, 'here')">${sum}</div>`
     }
@@ -737,15 +747,22 @@ function displayDice () {
 
     myMessage = myMessage.substr(0, myMessage.length - 1)
 
-    if (homeDice) {
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
+    if (rolled.length == 1) {
+      myMessage = ''
     } else {
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
+      myMessage +='='
+    }
+
+    if (homeDice) {
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
+    } else {
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
     }
   }
 
   //drops modal and shows just myMessage on the modal
-  $('#pick').html(myMessage)
+  $('#picks').html(myMessage)
+  $('#pick').css('display', 'inline')
   $('#staticBackdrop').modal('show')
   $('.choose').css('display', 'none')
   $('myBtn').removeClass('hide')
@@ -792,7 +809,8 @@ $('.cell-box').on('click', function () {
       myOwnMessage = myOwnMessage.substr(0, myOwnMessage.length - 1)
 
       myOwnMessage += `=<div class="picNumber" style="background-color: darkgray">${sum}</div>`
-      $('#pick').html(myOwnMessage)
+      $('#picks').html(myOwnMessage)
+      $('#pick').css('display', 'inline')
       $('#staticBackdrop').modal('show')
       $('.choose').css('display', 'none')
       $('myBtn').removeClass('hide')
@@ -847,7 +865,6 @@ function stop1 (x) {
     var p = document.getElementsByClassName(nine[i])
     p[0].style.visibility = 'hidden'
   }
-
     for (i = 0; i < x.length; i++) {
       var p = document.getElementsByClassName(x[i])
       p[0].style.visibility = 'visible'
