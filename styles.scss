@@ -3,11 +3,6 @@ $boxRed: rgba(230, 20, 20, 0.925);
 $boxBlue: #2A73CC;
 $boxYellow: rgb(241, 241, 41);
 
-// $boxGreen: green;
-// $boxRed: red;
-// $boxYellow: yellow;
-// $boxBlue: rgb(26, 26, 238);
-
 body {
     margin: 0;
     background-color: black;
@@ -233,5 +228,9 @@ table {
 }
 
 .unmove {
+    cursor: not-allowed;
+}
+
+.inner div {
     cursor: not-allowed;
 }

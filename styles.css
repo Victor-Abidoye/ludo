@@ -194,4 +194,7 @@ table {
 .unmove {
   cursor: not-allowed; }
 
+.inner div {
+  cursor: not-allowed; }
+
 /*# sourceMappingURL=styles.css.map */

@@ -56,9 +56,11 @@ function checkWinner () {
     var b = player[i][player[i].length - 1].toLowerCase()
     // if any player has all his/her seeds out of the house no more seed on the game corrider for each player remove such player from the player[] and rgby[]
     if (rgby[i][0] == 0 & rgby[i][rgby[i].length - 1] == 0 && home[a] == 0 && home[b] == 0) {
+      $('.' + player[i][0]).addClass('hide')
+      $('.' + player[i][player[i].length - 1]).addClass('hide')
       player.splice(i, 1)
       rgby.splice(i, 1)
-      alert("player " + (currentPlayer + 1) + " won")
+      alert("player " + (currentPlayer + 2) + " won")
     }
   }
   if (player.length == 1) {
@@ -643,12 +645,18 @@ function displayDice () {
     // if the current player has no seed outside and rolled a six, modal activates only the sum movement that sends to presendMOve()
     myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[0]}</div>`
       sum = rolled[0]
-      for (i = 1; i < rolled.length; i++) {
-        sum += rolled[i]
-        myMessage += `+<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
-      }
+    for (i = 1; i < rolled.length; i++) {
+      sum += rolled[i]
+      myMessage += `+<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div>`
+    }
 
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
+    if (rolled.length == 1) {
+      myMessage = ''
+    } else {
+      myMessage += '='
+    }
+
+    myMessage += `<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
 
   } else if ((rgby[currentPlayer].length == 1 && rgby[currentPlayer][0] == 1) ||
     (rgby[currentPlayer].length == 2 && (rgby[currentPlayer].includes(0) && rgby[currentPlayer].includes(1)))) {
@@ -667,7 +675,7 @@ function displayDice () {
           myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
         } else {
           if (rolled.includes(6)) {
-            myMessage += `<div class="picNumber unmove" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
+            myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${rolled[i]})">${rolled[i]}</div> +`
           } else {
             myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${rolled[i]}</div> +`
           }
@@ -677,27 +685,31 @@ function displayDice () {
 
     myMessage = myMessage.substr(0, myMessage.length - 1)
 
+    if (rolled.length == 1) {
+      myMessage = ''
+    } else {
+      myMessage += '='
+    }
+
     if (homeDice) {
       if (rolled.includes(6)) {
         if (rolled.length == 1) {
-          myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum})">${sum}</div>`
+          myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum})">${sum}</div>`
         } else {
-          myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
+          myMessage += `<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
         }
       } else {
-        myMessage += `=<div class="picNumber unmove" style="background-color: darkgray">${sum}</div>`
+        myMessage += `<div class="picNumber unmove" style="background-color: darkgray">${sum}</div>`
       }
     } else {
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum},'here')">${sum}</div>`
     }
 
   } else if (!checkEntry(myPosition)) {
     //there are not othe possible movement except the seed clicked
     // if it is homedice and there is still a seed at home, allow 6 to be available and sum also
     if (homeDice && home[toMoveColor] > 0) {
-      var myMessage = `<button id="myBtn" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reset()">
-                <span aria-hidden="true">&times;</span>
-                </button>`
+      var myMessage = ''
       sum = 0
       for (i = 0; i < rolled.length; i++){
         sum += rolled[i]
@@ -708,12 +720,17 @@ function displayDice () {
         }
       }
       myMessage = myMessage.substr(0, myMessage.length - 1)
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
+
+      if (rolled.length == 1) {
+        myMessage = ''
+      } else {
+        myMessage += '='
+      }
+
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="presendMOve(${sum})">${sum}</div>`
     } else if (!homeDice) {
       // if the seed clicked is not at home  then only sum and those that are not 6 will be made active
-      var myMessage = `<button id="myBtn" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reset()">
-                <span aria-hidden="true">&times;</span>
-                </button>`
+      var myMessage = ''
       sum = 0
       for (i = 0; i < rolled.length; i++) {
         sum += rolled[i]
@@ -728,7 +745,14 @@ function displayDice () {
       }
 
       myMessage = myMessage.substr(0, myMessage.length - 1)
-      myMessage += `=<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum}, 'here')">${sum}</div>`
+
+      if (rolled.length == 1) {
+        myMessage = ''
+      } else {
+        myMessage += '='
+      }
+
+      myMessage += `<div class="picNumber" data-dismiss="modal" onclick="sendMove(${sum}, 'here')">${sum}</div>`
     }
   } else {
     sum = 0
@@ -793,9 +817,7 @@ $('.cell-box').on('click', function () {
 
     } else if (typeof (status) == "object") {
       // receives the unmovable array as entry and activates only rolled dice value not in the unmovable array
-      var myOwnMessage = `<button id="myBtn" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reset()">
-                <span aria-hidden="true">&times;</span>
-                </button>`
+      var myOwnMessage = ''
       var sum = 0
       for (i = 0; i < rolled.length; i++){
         sum+= rolled[i]
@@ -808,7 +830,13 @@ $('.cell-box').on('click', function () {
 
       myOwnMessage = myOwnMessage.substr(0, myOwnMessage.length - 1)
 
-      myOwnMessage += `=<div class="picNumber" style="background-color: darkgray">${sum}</div>`
+      if (rolled.length == 1) {
+        myOwnMessage = ''
+      } else {
+        myOwnMessage += '='
+      }
+
+      myOwnMessage += `<div class="picNumber" style="background-color: darkgray">${sum}</div>`
       $('#picks').html(myOwnMessage)
       $('#pick').css('display', 'inline')
       $('#staticBackdrop').modal('show')
